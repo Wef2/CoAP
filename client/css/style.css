@@ -1,0 +1,18 @@
+.container-fluid{
+    padding:50px;
+}
+
+.bg-1{
+    background-color: #474E5D;
+    color: white;
+}
+
+.bg-2{
+    background-color: #1ABC9C;
+    color: white;
+}
+
+.bg-3 {
+    background-color: #333333;
+    color: white
+}
