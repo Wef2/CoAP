@@ -1,11 +1,11 @@
 $(document).ready(function(){
   $("#searchButton").click(function(){
         $.ajax({
-          url : "http://localhost:8080/greeting",
+          url : "http://localhost:8080/node/list",
           type : "GET",
           dataType : "text",
           success : function(data) {
-            addToTable(data);
+            setNodeTable(data);
             alert(data);
           },
           error : function(xhr, status, errorThrown) {
@@ -17,10 +17,12 @@ $(document).ready(function(){
         });
   });
 
-  function addToTable(data){
+  function setNodeTable(data){
       var jsonData = JSON.parse(data);
-      console.log(jsonData);
-      $("#dataField").append("<tr><td>"+jsonData.id+"</td><td>"+jsonData.content+"</td></tr>");
+      $("#dataField").html("");
+      for(i=0; i<jsonData.length; i++){
+        $("#dataField").append("<tr><td>"+jsonData[i].id+"</td><td>"+jsonData[i].info+"</td></tr>");
+      }
   }
 
 });

@@ -18,8 +18,20 @@ public class Node {
         this.info = info;
     }
 
+    public Node(){
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
     @Override
     public String toString(){
-        return String.format("Node[id=%d, info='$s']", id, info);
+        return String.format("Node[id=%d, info=%s]", id, info);
     }
 }

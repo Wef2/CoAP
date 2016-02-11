@@ -1,11 +1,10 @@
 package com.mcl;
 
-import com.mcl.domain.Greeting;
-import com.mcl.repository.GreetingRepository;
+import com.mcl.domain.Node;
+import com.mcl.repository.NodeRepository;
 import javafx.application.Application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -28,24 +27,22 @@ public class MyApplication {
         SpringApplication.run(MyApplication.class, args);
     }
 
-    @Autowired
-    private GreetingRepository repository;
-
     @Bean
-    public CommandLineRunner demo() {
+    public CommandLineRunner demo(NodeRepository repository) {
         return (args) -> {
             // save a couple of customers
-            repository.save(new Greeting(1, "test"));
-            repository.save(new Greeting(2, "test2"));
+            repository.save(new Node(1, "Node 1"));
+            repository.save(new Node(2, "Node 2"));
 
             // fetch all customers
             log.info("Customers found with findAll():");
             log.info("-------------------------------");
-            for (Greeting greeting : repository.findAll()) {
-                log.info(greeting.toString());
+            for (Node node : repository.findAll()) {
+                log.info(node.toString());
             }
             log.info("");
-
         };
     }
+
+
 }

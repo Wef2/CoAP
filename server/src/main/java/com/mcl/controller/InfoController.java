@@ -1,12 +1,12 @@
 package com.mcl.controller;
 
-import com.mcl.domain.Greeting;
-import com.mcl.repository.GreetingRepository;
+import com.mcl.domain.Node;
+import com.mcl.repository.NodeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by Kim on 2016-02-10.
@@ -15,14 +15,23 @@ import java.util.concurrent.atomic.AtomicLong;
 @RestController
 public class InfoController {
 
-    private GreetingRepository greetingRepository;
-    private int count = 0;
+    @Autowired
+    NodeRepository nodeRepository;
 
-    @RequestMapping("/greeting")
-    public Iterable<Greeting> greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
-        count++;
-        greetingRepository.save(new Greeting(count, "test"));
-        System.out.println(greetingRepository.findAll());
-        return greetingRepository.findAll();
+    @RequestMapping("/node/list")
+    public Iterable<Node> nodeList() {
+        return nodeRepository.findAll();
+    }
+
+    @RequestMapping("/node/{id}")
+    public Node node(@PathVariable int id) {
+        return nodeRepository.findOne(id);
+    }
+
+    @RequestMapping("/node/save")
+    public String nodeSave(@RequestParam("id") int id, @RequestParam("info") String info) {
+        Node newNode = new Node(id, info);
+        nodeRepository.save(newNode);
+        return "success";
     }
 }
