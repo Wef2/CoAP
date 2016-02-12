@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-public class InfoController {
+public class NodeController {
 
     @Autowired
     NodeRepository nodeRepository;
