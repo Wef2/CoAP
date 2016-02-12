@@ -18,11 +18,18 @@ $(document).ready(function(){
         });
   }
 
-
   function setNodeData(data){
       var jsonData = JSON.parse(data);
       $("#dataField").html("<tr><td>"+jsonData.id+"</td><td>"+jsonData.info+"</td></tr>");
   }
 
   setData();
+
+  $(".led-control").click(function(){
+    window.location = "http://localhost:3000/led.html";
+  });
+  $("#temperature-control").click(function(){
+    window.location = "http://localhost:3000/sensor.html";
+  });
+
 });

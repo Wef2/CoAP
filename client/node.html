@@ -11,6 +11,15 @@
 </head>
 <body>
 
+<nav class="navbar navbar-inverse navbar-fixed-top bg-1">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="http://localhost:3000">Mobile Computing IoT</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="http://localhost:3000">Home</a></li>
+    </ul>
+</nav>
+
 <div class="container-fluid bg-1 text-center">
     <h1>Mobile Computing Lab IoT</h1>
 </div>
@@ -20,24 +29,28 @@
 </div>
 
 <div class="container-fluid text-center">
-  <div class="panel panel-primary">
-    <div class="panel-heading">Node Image</div>
-    <div class="panel-body"><img src="../images/edison.png"/></div>
+  <div class="col-sm-8">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Node Image</div>
+      <div class="panel-body"><img class="img-thumbnail" src="../images/edison.png"/></div>
+    </div>
   </div>
-  <ul class="list-group">
-    <h3>List</h3>
-    <li class="list-group-item">LED 1  <button type="button" class="btn btn-default">Control</button></li>
-    <li class="list-group-item">LED 2  <button type="button" class="btn btn-default">Control</button></li>
-    <li class="list-group-item">LED 3  <button type="button" class="btn btn-default">Control</button></li>
-    <li class="list-group-item">LED 4  <button type="button" class="btn btn-default">Control</button></li>
-    <li class="list-group-item">Temperature Sensor  <button type="button" class="btn btn-default">Control</button></li>
-  </ul>
+  <div class="col-sm-4">
+    <ul class="list-group">
+      <h3>List</h3>
+      <li class="list-group-item">LED 1  <button type="button" class="btn btn-default led-control">Control</button></li>
+      <li class="list-group-item">LED 2  <button type="button" class="btn btn-default led-control">Control</button></li>
+      <li class="list-group-item">LED 3  <button type="button" class="btn btn-default led-control">Control</button></li>
+      <li class="list-group-item">LED 4  <button type="button" class="btn btn-default led-control">Control</button></li>
+      <li class="list-group-item">Temperature Sensor  <button type="button" class="btn btn-default" id="temperature-control">Control</button></li>
+    </ul>
+  </div>
 </div>
 
 <footer class="container-fluid bg-3 text-center">
   <p>Jeju National University Mobile Computing Lab</p>
 </footer>
 
-  <script src="js/node_info.js"></script>
+  <script src="js/node_app.js"></script>
 </body>
 </html>

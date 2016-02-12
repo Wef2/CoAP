@@ -21,7 +21,12 @@ $(document).ready(function(){
       var jsonData = JSON.parse(data);
       $("#dataField").html("");
       for(i=0; i<jsonData.length; i++){
-        $("#dataField").append("<tr><td>"+jsonData[i].id+"</td><td>"+jsonData[i].info+"</td><td><button type='button' class='btn btn-primary'>More info</button></td></tr>");
+        $("#dataField").append("<tr><td>"+jsonData[i].id+"</td><td>"+jsonData[i].info+"</td><td><button type='button' class='btn btn-primary' id='moreInfo'>More info</button></td></tr>");
       }
+
+      $("#moreInfo").click(function(){
+        window.location = "http://localhost:3000/node.html";
+      });
   }
+
 });
