@@ -20,6 +20,7 @@ $(document).ready(function(){
 
   function setNodeData(data){
       var jsonData = JSON.parse(data);
+      $(".nodeInfo").html(jsonData.info);
       $("#dataField").html("<tr><td>"+jsonData.id+"</td><td>"+jsonData.info+"</td></tr>");
   }
 

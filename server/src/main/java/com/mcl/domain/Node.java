@@ -31,7 +31,10 @@ public class Node {
     }
 
     @Override
-    public String toString(){
-        return String.format("Node[id=%d, info=%s]", id, info);
+    public String toString() {
+        return "Node{" +
+                "id=" + id +
+                ", info='" + info + '\'' +
+                '}';
     }
 }

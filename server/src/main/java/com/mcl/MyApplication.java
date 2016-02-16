@@ -1,6 +1,8 @@
 package com.mcl;
 
+import com.mcl.domain.Item;
 import com.mcl.domain.Node;
+import com.mcl.repository.ItemRepository;
 import com.mcl.repository.NodeRepository;
 import javafx.application.Application;
 import org.slf4j.Logger;
@@ -28,19 +30,39 @@ public class MyApplication {
     }
 
     @Bean
-    public CommandLineRunner demo(NodeRepository repository) {
+    public CommandLineRunner demo(NodeRepository nodeRepository, ItemRepository itemRepository) {
         return (args) -> {
-            // save a couple of customers
-            repository.save(new Node(1, "Node 1"));
-            repository.save(new Node(2, "Node 2"));
+            nodeRepository.save(new Node(1, "Node 1"));
+            nodeRepository.save(new Node(2, "Node 2"));
 
-            // fetch all customers
-            log.info("Customers found with findAll():");
+            log.info("Nodes found with findAll():");
             log.info("-------------------------------");
-            for (Node node : repository.findAll()) {
+            for (Node node : nodeRepository.findAll()) {
                 log.info(node.toString());
             }
             log.info("");
+
+
+            itemRepository.save(new Item("1-L-1", 1, "LED", "ON"));
+            itemRepository.save(new Item("1-L-2", 1, "LED", "ON"));
+            itemRepository.save(new Item("1-L-3", 1, "LED", "ON"));
+            itemRepository.save(new Item("1-L-4", 1, "LED", "ON"));
+            itemRepository.save(new Item("1-S-1", 1, "Temperature Sensor", "ON"));
+
+            log.info("Nodes found with findByNodeId():");
+            log.info("-------------------------------");
+            for (Item item : itemRepository.findByNodeId(1)) {
+                log.info(item.toString());
+            }
+            log.info("");
+
+            log.info("Nodes found with findByType():");
+            log.info("-------------------------------");
+            for (Item item : itemRepository.findByType("LED")) {
+                log.info(item.toString());
+            }
+            log.info("");
+
         };
     }
 
