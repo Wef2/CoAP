@@ -12,17 +12,17 @@ public class Item {
     @Id
     private String id;
     private int nodeId;
-    private String type;
+    private String itemType;
     private String status;
 
     public Item(){
 
     }
 
-    public Item(String id, int nodeId, String type, String status) {
+    public Item(String id, int nodeId, String itemType, String status) {
         this.id = id;
         this.nodeId = nodeId;
-        this.type = type;
+        this.itemType = itemType;
         this.status = status;
     }
 
@@ -34,8 +34,8 @@ public class Item {
         return nodeId;
     }
 
-    public String getType() {
-        return type;
+    public String getItemType() {
+        return itemType;
     }
 
     public String getStatus() {
@@ -47,7 +47,7 @@ public class Item {
         return "Item{" +
                 "id='" + id + '\'' +
                 ", nodeId=" + nodeId +
-                ", type='" + type + '\'' +
+                ", itemType='" + itemType + '\'' +
                 ", status='" + status + '\'' +
                 '}';
     }

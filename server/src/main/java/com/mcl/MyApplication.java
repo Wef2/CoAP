@@ -58,13 +58,18 @@ public class MyApplication {
 
             log.info("Nodes found with findByType():");
             log.info("-------------------------------");
-            for (Item item : itemRepository.findByType("LED")) {
+            for (Item item : itemRepository.findByItemType("LED")) {
                 log.info(item.toString());
             }
             log.info("");
 
+            log.info("Nodes found with findByNodeIdAndItemType():");
+            log.info("-------------------------------");
+            for (Item item : itemRepository.findItemsByNodeIdAndItemType(1, "Temperature Sensor")) {
+                log.info(item.toString());
+            }
+            log.info("");
         };
     }
-
 
 }
