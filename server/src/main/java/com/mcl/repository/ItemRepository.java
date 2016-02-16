@@ -16,6 +16,6 @@ public interface ItemRepository extends CrudRepository<Item, String> {
 
     List<Item> findByItemType(String itemType);
 
-    @Query("select i from Item i where i.nodeId = :nodeId AND i.itemType = :itemType")
+    @Query("SELECT i FROM Item i WHERE i.nodeId = :nodeId AND i.itemType = :itemType")
     List<Item> findItemsByNodeIdAndItemType(@Param("nodeId") int nodeId, @Param("itemType") String itemType);
 }

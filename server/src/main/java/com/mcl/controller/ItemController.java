@@ -16,9 +16,14 @@ public class ItemController {
     @Autowired
     ItemRepository itemRepository;
 
-    @RequestMapping("/node/{nodeId}/item_list")
-    public Iterable<Item> itemList(@PathVariable int nodeId) {
+    @RequestMapping("/node/{nodeId}/items")
+    public Iterable<Item> items(@PathVariable int nodeId) {
         return itemRepository.findByNodeId(nodeId);
+    }
+
+    @RequestMapping("/node/item/{id}")
+    public Item item(@PathVariable String id){
+        return itemRepository.findOne(id);
     }
 
 }
