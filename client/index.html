@@ -10,45 +10,43 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
-
-<nav class="navbar navbar-inverse navbar-fixed-top bg-1">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="http://localhost:3000">Mobile Computing IoT</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li><a href="http://localhost:3000">Home</a></li>
-    </ul>
-</nav>
-
-<div class="container-fluid bg-1 text-center">
-      <h1>Mobile Computing Lab IoT</h1>
+<div class="jumbotron bg-1 text-center">
+    <h1>Mobile Computing IoT</h1>
+    <p>Web Services for the Internet of Things through CoAP</p>
 </div>
-
-<div class="container-fluid bg-2 text-center">
-  <h3>IoT Node List</h3>
-  <button type="button" class="btn btn-default" id="searchButton">
-    <span class="glyphicon glyphicon-search"></span>Search
-  </button>
+<div class="container-fluid text-center bg-2">
+  <h2>IoT Web Services</h2>
 </div>
-
 <div class="container-fluid">
+  <h3 class="text-center">IoT Node List</h3>
   <table class="table">
     <thead>
       <tr>
-        <th>Node</th>
-        <th>Information</th>
-        <th></th>
+        <th>Node ID</th>
+        <th>Model</th>
+        <th>Node Name</th>
       </tr>
     </thead>
-    <tbody id="dataField">
+    <tbody id="listField">
     </tbody>
   </table>
+  <div class="text-center">
+    <button type="button" class="btn btn-default" id="searchButton">
+      <span class="glyphicon glyphicon-search"></span>     Search For Node List
+    </button>
+  </div>
+</div>
+<div class="container-fluid text-center bg-2 hidden">
+</div>
+<div class="container-fluid text-center hidden">
+  <h2></h2>
 </div>
 
+
 <footer class="container-fluid bg-3 text-center">
-  <p>Jeju National University Mobile Computing Lab</p>
+  <h4>Jeju National University Mobile Computing Lab</h4>
 </footer>
 
-  <script src="js/index_app.js"></script>
+  <script src="js/main_app.js"></script>
 </body>
 </html>

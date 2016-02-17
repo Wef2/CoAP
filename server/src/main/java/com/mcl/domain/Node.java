@@ -11,11 +11,13 @@ public class Node {
 
     @Id
     private int id;
-    private String info;
+    private String model;
+    private String name;
 
-    public Node(int id, String info){
+    public Node(int id, String model, String name){
         this.id = id;
-        this.info = info;
+        this.model = model;
+        this.name = name;
     }
 
     public Node(){
@@ -26,15 +28,20 @@ public class Node {
         return id;
     }
 
-    public String getInfo() {
-        return info;
+    public String getModel() {
+        return model;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override
     public String toString() {
         return "Node{" +
                 "id=" + id +
-                ", info='" + info + '\'' +
+                ", model='" + model + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

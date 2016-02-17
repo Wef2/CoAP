@@ -32,8 +32,8 @@ public class MyApplication {
     @Bean
     public CommandLineRunner demo(NodeRepository nodeRepository, ItemRepository itemRepository) {
         return (args) -> {
-            nodeRepository.save(new Node(1, "Node 1"));
-            nodeRepository.save(new Node(2, "Node 2"));
+            nodeRepository.save(new Node(1, "Edison Board", "Node 1"));
+            nodeRepository.save(new Node(2, "Edison Board", "Node 2"));
 
             log.info("Nodes found with findAll():");
             log.info("-------------------------------");
