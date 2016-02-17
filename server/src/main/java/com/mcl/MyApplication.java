@@ -48,6 +48,8 @@ public class MyApplication {
             itemRepository.save(new Item("1-L-3", 1, "LED", "ON"));
             itemRepository.save(new Item("1-L-4", 1, "LED", "ON"));
             itemRepository.save(new Item("1-S-1", 1, "Temperature Sensor", "ON"));
+            itemRepository.save(new Item("2-L-1", 2, "LED", "ON"));
+            itemRepository.save(new Item("2-S-1", 2, "Temperature Sensor", "ON"));
 
             log.info("Nodes found with findByNodeId():");
             log.info("-------------------------------");
