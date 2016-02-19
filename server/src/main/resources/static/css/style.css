@@ -1,22 +1,27 @@
-.jumbotron{
-  margin-bottom:0;
+h2 {
+    margin-bottom: 20px;
 }
 
-.navbar{
-  border: none;
+.jumbotron {
+    margin-bottom: 0;
 }
 
-.container-fluid{
-    padding:50px;
+.navbar {
+    border: none;
 }
 
-.bg-1{
-    background-color: #1ABC9C;
+.container-fluid {
+    padding: 50px;
+}
+
+.bg-1 {
+    background-color: #474E5D;
     color: white;
 }
 
-.bg-2{
-    background-color: #EEEEEE;
+.bg-2 {
+    background-color: #1ABC9c;
+    color: white;
 }
 
 .bg-3 {
