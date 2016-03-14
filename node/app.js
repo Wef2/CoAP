@@ -1,19 +1,8 @@
-var coap        = require('coap')
-  , server      = coap.createServer()
+const coap  = require('coap')
+    , req   = coap.request('coap://localhost:5683')
 
-server.on('request', function(req, res) {
-  res.end('Test')
+req.on('response', function(res) {
+  res.pipe(process.stdout)
 })
 
-server.listen(function() {
-  var req = coap.request('coap://localhost')
-
-  req.on('response', function(res) {
-    res.pipe(process.stdout)
-    res.on('end', function() {
-      process.exit(0)
-    })
-  })
-
-  req.end()
-})
+req.end()
