@@ -1,10 +1,13 @@
-package com.mcl;
+package com.mcl.coap;
 
 import com.mcl.resource.ConnResource;
 import org.eclipse.californium.core.CoapServer;
+import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.network.CoapEndpoint;
 import org.eclipse.californium.core.network.EndpointManager;
 import org.eclipse.californium.core.network.config.NetworkConfig;
+import org.eclipse.californium.core.server.resources.CoapExchange;
+import org.eclipse.californium.core.server.resources.Resource;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -19,10 +22,9 @@ public class MyServer extends CoapServer {
     private static final int COAP_PORT = NetworkConfig.getStandard().getInt(NetworkConfig.Keys.COAP_PORT);
 
     public MyServer() throws SocketException {
-
         add(new ConnResource());
         addEndpoints();
-
+        System.out.println(getRoot().getChildren());
     }
 
     private void addEndpoints() {
@@ -33,6 +35,5 @@ public class MyServer extends CoapServer {
             }
         }
     }
-
 
 }

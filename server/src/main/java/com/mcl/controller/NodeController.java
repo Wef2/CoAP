@@ -34,4 +34,10 @@ public class NodeController {
         nodeRepository.save(newNode);
         return "success";
     }
+
+    @RequestMapping("/node/delete")
+    public String nodeDelete(@RequestParam("id") int id){
+        nodeRepository.delete(id);
+        return "success";
+    }
 }

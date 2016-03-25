@@ -1,5 +1,6 @@
 package com.mcl;
 
+import com.mcl.coap.MyServer;
 import com.mcl.domain.Item;
 import com.mcl.domain.Node;
 import com.mcl.repository.ItemRepository;
@@ -12,7 +13,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.net.SocketException;
+import java.io.IOException;
 
 @SpringBootApplication
 public class MyApplication {
@@ -21,10 +22,9 @@ public class MyApplication {
 
     public static void main(String args[]) {
         try {
-            MyServer server = new MyServer();
-            server.start();
-        } catch (SocketException e) {
-            System.err.println("Failed to initialize server: " + e.getMessage());
+            new MyServer().start();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         SpringApplication.run(MyApplication.class, args);
     }
@@ -34,15 +34,6 @@ public class MyApplication {
         return (args) -> {
             nodeRepository.save(new Node(1, "Edison Board", "Node 1"));
             nodeRepository.save(new Node(2, "Edison Board", "Node 2"));
-
-            log.info("Nodes found with findAll():");
-            log.info("-------------------------------");
-            for (Node node : nodeRepository.findAll()) {
-                log.info(node.toString());
-            }
-            log.info("");
-
-
             itemRepository.save(new Item("1-L-1", 1, "LED", "ON"));
             itemRepository.save(new Item("1-L-2", 1, "LED", "ON"));
             itemRepository.save(new Item("1-L-3", 1, "LED", "ON"));
@@ -50,27 +41,6 @@ public class MyApplication {
             itemRepository.save(new Item("1-S-1", 1, "Temperature Sensor", "ON"));
             itemRepository.save(new Item("2-L-1", 2, "LED", "ON"));
             itemRepository.save(new Item("2-S-1", 2, "Temperature Sensor", "ON"));
-
-            log.info("Nodes found with findByNodeId():");
-            log.info("-------------------------------");
-            for (Item item : itemRepository.findByNodeId(1)) {
-                log.info(item.toString());
-            }
-            log.info("");
-
-            log.info("Nodes found with findByType():");
-            log.info("-------------------------------");
-            for (Item item : itemRepository.findByItemType("LED")) {
-                log.info(item.toString());
-            }
-            log.info("");
-
-            log.info("Nodes found with findByNodeIdAndItemType():");
-            log.info("-------------------------------");
-            for (Item item : itemRepository.findItemsByNodeIdAndItemType(1, "Temperature Sensor")) {
-                log.info(item.toString());
-            }
-            log.info("");
         };
     }
 
