@@ -13,14 +13,18 @@ public class Node {
     private int id;
     private String model;
     private String name;
+    private String address;
+    private int port;
 
-    public Node(int id, String model, String name){
+    public Node(int id, String model, String name, String address, int port) {
         this.id = id;
         this.model = model;
         this.name = name;
+        this.address = address;
+        this.port = port;
     }
 
-    public Node(){
+    public Node() {
 
     }
 
@@ -34,6 +38,14 @@ public class Node {
 
     public String getName() {
         return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public int getPort() {
+        return port;
     }
 
 

@@ -22,9 +22,12 @@ public class MyServer extends CoapServer {
     private static final int COAP_PORT = NetworkConfig.getStandard().getInt(NetworkConfig.Keys.COAP_PORT);
 
     public MyServer() throws SocketException {
-        add(new ConnResource());
         addEndpoints();
-        System.out.println(getRoot().getChildren());
+    }
+
+    @Override
+    protected Resource createRoot() {
+        return new ConnResource();
     }
 
     private void addEndpoints() {

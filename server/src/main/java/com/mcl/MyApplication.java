@@ -32,8 +32,6 @@ public class MyApplication {
     @Bean
     public CommandLineRunner demo(NodeRepository nodeRepository, ItemRepository itemRepository) {
         return (args) -> {
-            nodeRepository.save(new Node(1, "Edison Board", "Node 1"));
-            nodeRepository.save(new Node(2, "Edison Board", "Node 2"));
             itemRepository.save(new Item("1-L-1", 1, "LED", "ON"));
             itemRepository.save(new Item("1-L-2", 1, "LED", "ON"));
             itemRepository.save(new Item("1-L-3", 1, "LED", "ON"));

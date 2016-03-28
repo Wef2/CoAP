@@ -28,16 +28,4 @@ public class NodeController {
         return nodeRepository.findOne(id);
     }
 
-    @RequestMapping("/node/save")
-    public String nodeSave(@RequestParam("id") int id, @RequestParam("model") String model, @RequestParam("name") String name) {
-        Node newNode = new Node(id, model, name);
-        nodeRepository.save(newNode);
-        return "success";
-    }
-
-    @RequestMapping("/node/delete")
-    public String nodeDelete(@RequestParam("id") int id){
-        nodeRepository.delete(id);
-        return "success";
-    }
 }

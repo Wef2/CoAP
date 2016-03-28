@@ -4,10 +4,11 @@ var port;
 var coap    = require('coap')
     , server  = coap.createServer()
     , initReq = coap.request({
-      host: 'localhost',
+      host: '117.17.102.81',
       port: '5555',
       method: 'GET'
-    })
+})
+
 
 
 server.on('request', function(req, res) {
@@ -27,6 +28,16 @@ server.listen(function() {
   console.log('Node Server Started')
   console.log('Node Server Address : ', server._address)
   console.log('Node Server Port : ', server._port)
+
+  var payload = {
+    id: "1",
+    model: "Intel Edison",
+    name: "IoT Node 1",
+    address: server._address,
+    port: server._port
+  }
+
+  initReq.write(JSON.stringify(payload));
 
   initReq.on('response', function(res) {
         res.pipe(process.stdout)
