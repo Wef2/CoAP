@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * Created by Kim on 2016-02-16.
  */
+
 public interface ItemRepository extends CrudRepository<Item, String> {
 
     List<Item> findByNodeId(int nodeId);
