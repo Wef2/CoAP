@@ -106,10 +106,10 @@ $(document).ready(function () {
     function setItemData(itemId, data) {
         $("#itemField").html("");
         var jsonData = JSON.parse(data);
-        if(jsonData.itemType == "LED"){
+        if(jsonData.itemType == '"LED"'){
             setItemLed(itemId, jsonData);
         }
-        else if(jsonData.itemType = "Temperature Sensor"){
+        else if(jsonData.itemType = '"Temperature Sensor"'){
             setItemSensor(itemId, jsonData);
         }
     }
@@ -122,10 +122,16 @@ $(document).ready(function () {
         appendData += "<li class='list-group-item'>Node Id : " + jsonData.nodeId + "</br>";
         appendData += "Item type : " + jsonData.itemType + "</br>";
         appendData += "Item ID : " + jsonData.id + "</br>";
-        appendData += "Item Status : " + jsonData.status + "</br>";
-        appendData += "<button type='button' class='btn btn-primary'>On</button><button type='button' class='btn btn-primary'>Off</button>";
+        appendData += "Item Status : " + "<p class='item-status'>" + jsonData.status + "</p>" +"</br>";
+        appendData += "<button type='button' class='btn btn-primary on-button'>On</button><button type='button' class='btn btn-primary off-button'>Off</button>";
         appendData = appendData + "</ul></div>";
         $("#itemField").append(appendData);
+        $(".on-button").click(function () {
+            sendOperation(itemId, "on")
+        });
+        $(".off-button").click(function () {
+            sendOperation(itemId, "off")
+        });
     }
 
     function setItemSensor(itemId, jsonData){
@@ -141,4 +147,20 @@ $(document).ready(function () {
         $("#itemField").append(appendData);
     }
 
+    function sendOperation(itemId, operation){
+        $.ajax({
+            url: "http://localhost:8080/node/item/" + itemId + "/" + operation,
+            type: "GET",
+            dataType: "text",
+            success: function (data) {
+                alert(data);
+            },
+            error: function (xhr, status, errorThrown) {
+                alert("Error!");
+                console.log("Error: " + errorThrown);
+                console.log("Status: " + status);
+                console.dir(xhr);
+            }
+        });
+    }
 });

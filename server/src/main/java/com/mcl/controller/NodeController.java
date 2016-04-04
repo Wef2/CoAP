@@ -19,6 +19,7 @@ public class NodeController {
 
     @RequestMapping("/node/list")
     public Iterable<Node> nodeList() {
+        System.out.println(nodeRepository.findAll());
         return nodeRepository.findAll();
     }
 

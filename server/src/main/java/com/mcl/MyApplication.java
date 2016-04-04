@@ -28,13 +28,6 @@ public class MyApplication {
             MyServer myServer = new MyServer();
             myServer.start();
             myServer.getConnResource().setMessageController(messageController);
-
-            System.out.println("start"+ messageController);
-            ItemRepository itemRepository = messageController.getItemRepository();
-            itemRepository.save(new Item("1-L-1", 1, "LED", "ON"));
-            itemRepository.save(new Item("1-S-1", 1, "Temperature Sensor", "ON"));
-            itemRepository.save(new Item("2-L-1", 2, "LED", "ON"));
-            itemRepository.save(new Item("2-S-1", 2, "Temperature Sensor", "ON"));
         };
     }
 

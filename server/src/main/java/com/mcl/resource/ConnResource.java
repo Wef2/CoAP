@@ -3,8 +3,9 @@ package com.mcl.resource;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.mcl.domain.Node;
 import com.mcl.controller.MessageController;
+import com.mcl.domain.Item;
+import com.mcl.domain.Node;
 import com.mcl.listener.ResultListener;
 import javafx.application.Application;
 import org.eclipse.californium.core.CoapResource;
@@ -18,7 +19,7 @@ import org.slf4j.LoggerFactory;
  * Created by Kim on 2016-02-10.
  */
 
-public class ConnResource extends CoapResource implements ResultListener{
+public class ConnResource extends CoapResource implements ResultListener {
 
     private static final Logger log = LoggerFactory.getLogger(Application.class);
     private JsonParser parser = new JsonParser();
@@ -36,20 +37,33 @@ public class ConnResource extends CoapResource implements ResultListener{
 
     @Override
     public void handleGET(CoapExchange exchange) {
-        log.info("GET");
+        log.info("Message From IoT Node");
         exchange.respond(CoAP.ResponseCode.CREATED);
-        JsonElement jsonElement = parser.parse(exchange.advanced().getRequest().getPayloadString());
-        JsonObject object = jsonElement.getAsJsonObject();
-        log.info("ID : " + object.get("id").toString());
-        log.info("MODEL : " + object.get("model").toString());
-        log.info("NAME : " + object.get("name").toString());
-        log.info("PORT : " + object.get("port").toString());
-        int id = object.get("id").getAsInt();
-        String model = object.get("model").toString();
-        String name = object.get("name").toString();
-        int port = Integer.parseInt(object.get("port").toString());
+        JsonElement nodeJson = parser.parse(exchange.advanced().getRequest().getPayloadString());
+        JsonObject nodeObject = nodeJson.getAsJsonObject();
+        log.info("Information : " + nodeObject.toString());
+        int id = nodeObject.get("id").getAsInt();
+        String model = nodeObject.get("model").toString();
+        String name = nodeObject.get("name").toString();
+        int port = Integer.parseInt(nodeObject.get("port").toString());
+
         Node node = new Node(id, model, name, "", port);
+
+        JsonElement itemJson = parser.parse(nodeObject.get("item").toString());
+        JsonObject itemObject = itemJson.getAsJsonObject();
+        String itemId = itemObject.get("id").toString();
+        String type = itemObject.get("type").toString();
+        String status = itemObject.get("status").getAsString();
+
+        Item item = new Item(itemId, id, type, status);
+
         messageController.registerNode(node);
+        messageController.registerItem(item);
+
+//        CoapClient coapClient = new CoapClient("117.17.102.81:5683");
+//        coapClient.setTimeout(5000);
+//        CoapResponse coapResponse = coapClient.get();
+//        log.info(coapResponse.getResponseText());
     }
 
     @Override

@@ -1,7 +1,16 @@
 package com.mcl.controller;
 
 import com.mcl.domain.Item;
+import com.mcl.domain.Node;
 import com.mcl.repository.ItemRepository;
+import com.mcl.repository.NodeRepository;
+import javafx.application.Application;
+import org.eclipse.californium.core.CoapClient;
+import org.eclipse.californium.core.CoapResponse;
+import org.eclipse.californium.core.Utils;
+import org.eclipse.californium.core.coap.MediaTypeRegistry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ItemController {
 
+    private static final Logger log = LoggerFactory.getLogger(Application.class);
+
     @Autowired
     ItemRepository itemRepository;
+    @Autowired
+    NodeRepository nodeRepository;
 
     @RequestMapping("/node/{nodeId}/items")
     public Iterable<Item> items(@PathVariable int nodeId) {
@@ -22,8 +35,28 @@ public class ItemController {
     }
 
     @RequestMapping("/node/item/{id}")
-    public Item item(@PathVariable String id){
+    public Item item(@PathVariable String id) {
         return itemRepository.findOne(id);
     }
 
+    @RequestMapping("/node/item/{id}/{operation}")
+    public String itemControl(@PathVariable String id, @PathVariable String operation) {
+        log.info("Message From Client : " + "Item Id : " + id + ", Operation : " + operation);
+        String msg;
+        Item item = itemRepository.findOne(id);
+        Node node = nodeRepository.findOne(item.getNodeId());
+        CoapClient coapClient = new CoapClient("117.17.102.81:" + node.getPort());
+        coapClient.put(id + operation, MediaTypeRegistry.TEXT_PLAIN);
+        coapClient.setTimeout(5000);
+        CoapResponse response = coapClient.get();
+        if (response != null) {
+            msg = response.getResponseText();
+            System.out.println(Utils.prettyPrint(response));
+            itemRepository.updateStatus(id, operation);
+            System.out.println(itemRepository.findOne(id));
+        } else {
+            msg = "Fail";
+        }
+        return msg;
+    }
 }
