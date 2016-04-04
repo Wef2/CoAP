@@ -29,7 +29,7 @@ public class MessageController {
 
     public void registerNode(Node node) {
         String msg;
-        if (nodeRepository.exists(node.getId())) {
+        if (!nodeRepository.exists(node.getId())) {
             nodeRepository.save(node);
             msg = "Success";
         } else {
@@ -40,7 +40,7 @@ public class MessageController {
 
     public void registerItem(Item item) {
         String msg;
-        if (itemRepository.exists(item.getId())) {
+        if (!itemRepository.exists(item.getId())) {
             itemRepository.save(item);
             msg = "Success";
         } else {

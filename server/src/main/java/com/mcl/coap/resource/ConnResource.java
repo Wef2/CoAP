@@ -1,4 +1,4 @@
-package com.mcl.resource;
+package com.mcl.coap.resource;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -59,11 +59,6 @@ public class ConnResource extends CoapResource implements ResultListener {
 
         messageController.registerNode(node);
         messageController.registerItem(item);
-
-//        CoapClient coapClient = new CoapClient("117.17.102.81:5683");
-//        coapClient.setTimeout(5000);
-//        CoapResponse coapResponse = coapClient.get();
-//        log.info(coapResponse.getResponseText());
     }
 
     @Override

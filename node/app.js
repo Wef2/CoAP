@@ -10,9 +10,14 @@ const coap    = require('coap')
 })
 
 server.listen(function() {
+  var date = new Date();
+  var dateStr = date.toLocaleString();
+  console.log("\n-------- Initialize IoT Node --------")
+  console.log(dateStr);
   console.log('IoT Node Server Started')
-  console.log('IoT Node Server Address : ', server._address)
-  console.log('IoT Node Server Port : ', server._port)
+  console.log('IoT Node Address : ', server._address)
+  console.log('IoT Node Port : ', server._port)
+  console.log("-------------------------------------\n")
 
   var payload = {
     id: "1",
@@ -34,14 +39,17 @@ server.listen(function() {
   initReq.end()
 })
 
-
 server.on('request', function(req, res) {
 
   if (req.headers['Observe'] !== 0)
-    console.log("Message From Server")
+    var operation = req.payload.toString();
+    console.log("\n-------- Message From Server --------")
     console.log("Server Address : " + req.rsinfo.address)
     console.log("Server Port : " + req.rsinfo.port)
     console.log("Payload : " + req.payload.toString());
+    if(operation.length > 0){
+      operationHandler(operation);
+    }
     return res.end(req.payload.toString() + "Success")
 
   var interval = setInterval(function() {
@@ -52,3 +60,9 @@ server.on('request', function(req, res) {
     clearInterval(interval)
   })
 })
+
+function operationHandler(operation){
+  console.log("Client Operation")
+  console.log("Target Item : " + operation.substring(1, 6))
+  console.log("Operation : " + operation.substring(7))
+}

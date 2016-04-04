@@ -1,6 +1,6 @@
-package com.mcl.coap;
+package com.mcl.coap.server;
 
-import com.mcl.resource.ConnResource;
+import com.mcl.coap.resource.ConnResource;
 import org.eclipse.californium.core.CoapServer;
 import org.eclipse.californium.core.network.CoapEndpoint;
 import org.eclipse.californium.core.network.EndpointManager;

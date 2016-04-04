@@ -1,9 +1,7 @@
 package com.mcl;
 
-import com.mcl.coap.MyServer;
-import com.mcl.domain.Item;
+import com.mcl.coap.server.MyServer;
 import com.mcl.controller.MessageController;
-import com.mcl.repository.ItemRepository;
 import javafx.application.Application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

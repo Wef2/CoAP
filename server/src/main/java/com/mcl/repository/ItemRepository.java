@@ -1,9 +1,11 @@
 package com.mcl.repository;
 
 import com.mcl.domain.Item;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +22,8 @@ public interface ItemRepository extends CrudRepository<Item, String> {
     @Query("SELECT i FROM Item i WHERE i.nodeId = :nodeId AND i.itemType = :itemType")
     List<Item> findItemsByNodeIdAndItemType(@Param("nodeId") int nodeId, @Param("itemType") String itemType);
 
+    @Transactional
+    @Modifying(clearAutomatically = true)
     @Query("UPDATE Item i SET i.status = :status WHERE i.id = :id")
     void updateStatus(@Param("id") String id, @Param("status") String status);
 

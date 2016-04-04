@@ -122,7 +122,7 @@ $(document).ready(function () {
         appendData += "<li class='list-group-item'>Node Id : " + jsonData.nodeId + "</br>";
         appendData += "Item type : " + jsonData.itemType + "</br>";
         appendData += "Item ID : " + jsonData.id + "</br>";
-        appendData += "Item Status : " + "<p class='item-status'>" + jsonData.status + "</p>" +"</br>";
+        appendData += "Item Status :" + jsonData.status + "</br>";
         appendData += "<button type='button' class='btn btn-primary on-button'>On</button><button type='button' class='btn btn-primary off-button'>Off</button>";
         appendData = appendData + "</ul></div>";
         $("#itemField").append(appendData);
