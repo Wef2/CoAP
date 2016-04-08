@@ -31,7 +31,7 @@ public class MessageController {
         String msg;
         if (!nodeRepository.exists(node.getId())) {
             nodeRepository.save(node);
-            msg = "Success";
+            msg = "Register Success";
         } else {
             msg = "Already Registered";
         }
@@ -42,7 +42,7 @@ public class MessageController {
         String msg;
         if (!itemRepository.exists(item.getId())) {
             itemRepository.save(item);
-            msg = "Success";
+            msg = "Register Success";
         } else {
             msg = "Already Registered";
         }

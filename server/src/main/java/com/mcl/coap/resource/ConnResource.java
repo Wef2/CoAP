@@ -1,8 +1,5 @@
 package com.mcl.coap.resource;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.mcl.controller.MessageController;
 import com.mcl.domain.Item;
 import com.mcl.domain.Node;
@@ -12,6 +9,7 @@ import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.Utils;
 import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.server.resources.CoapExchange;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +20,6 @@ import org.slf4j.LoggerFactory;
 public class ConnResource extends CoapResource implements ResultListener {
 
     private static final Logger log = LoggerFactory.getLogger(Application.class);
-    private JsonParser parser = new JsonParser();
 
     private MessageController messageController;
 
@@ -39,21 +36,18 @@ public class ConnResource extends CoapResource implements ResultListener {
     public void handleGET(CoapExchange exchange) {
         log.info("Message From IoT Node");
         exchange.respond(CoAP.ResponseCode.CREATED);
-        JsonElement nodeJson = parser.parse(exchange.advanced().getRequest().getPayloadString());
-        JsonObject nodeObject = nodeJson.getAsJsonObject();
-        log.info("Information : " + nodeObject.toString());
-        int id = nodeObject.get("id").getAsInt();
-        String model = nodeObject.get("model").toString();
-        String name = nodeObject.get("name").toString();
-        int port = Integer.parseInt(nodeObject.get("port").toString());
-
+        JSONObject jsonObject = new JSONObject(exchange.advanced().getRequest().getPayloadString());
+        log.info("Information : " + jsonObject.toString());
+        int id = jsonObject.getInt("id");
+        String model = jsonObject.getString("model");
+        String name = jsonObject.getString("name");
+        int port = jsonObject.getInt("port");
         Node node = new Node(id, model, name, "", port);
 
-        JsonElement itemJson = parser.parse(nodeObject.get("item").toString());
-        JsonObject itemObject = itemJson.getAsJsonObject();
-        String itemId = itemObject.get("id").toString();
-        String type = itemObject.get("type").toString();
-        String status = itemObject.get("status").getAsString();
+        JSONObject itemObject = jsonObject.getJSONObject("item");
+        String itemId = itemObject.getString("id");
+        String type = itemObject.getString("type");
+        String status = itemObject.getString("status");
 
         Item item = new Item(itemId, id, type, status);
 

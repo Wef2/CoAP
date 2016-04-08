@@ -106,10 +106,10 @@ $(document).ready(function () {
     function setItemData(itemId, data) {
         $("#itemField").html("");
         var jsonData = JSON.parse(data);
-        if(jsonData.itemType == '"LED"'){
+        if(jsonData.itemType == 'LED'){
             setItemLed(itemId, jsonData);
         }
-        else if(jsonData.itemType = '"Temperature Sensor"'){
+        else if(jsonData.itemType = 'Temperature Sensor'){
             setItemSensor(itemId, jsonData);
         }
     }
@@ -119,18 +119,18 @@ $(document).ready(function () {
         appendData += "<div class='col-sm-8 text-center'><img class='img-thumbnail' src='images/led.jpg'/></div>";
         appendData += "<div class='col-sm-4'><ul class='list-group'>";
         appendData += "<div class='list-group-item active'>Item Information</div>";
-        appendData += "<li class='list-group-item'>Node Id : " + jsonData.nodeId + "</br>";
-        appendData += "Item type : " + jsonData.itemType + "</br>";
-        appendData += "Item ID : " + jsonData.id + "</br>";
-        appendData += "Item Status :" + jsonData.status + "</br>";
-        appendData += "<button type='button' class='btn btn-primary on-button'>On</button><button type='button' class='btn btn-primary off-button'>Off</button>";
+        appendData += "<li class='list-group-item'>Node Id : " + jsonData.nodeId + "</li>";
+        appendData += "<li class='list-group-item'>Item type : " + jsonData.itemType + "</li>";
+        appendData += "<li class='list-group-item'>Item ID : " + jsonData.id + "</li>";
+        appendData += "<li class='list-group-item status-info'>Status : " + "<p class='"+itemId+"'>"+jsonData.status + "</p></li>";
+        appendData += "<li class='list-group-item'><button type='button' class='btn btn-primary on-button'>On</button><button type='button' class='btn btn-primary off-button'>Off</button></li>";
         appendData = appendData + "</ul></div>";
         $("#itemField").append(appendData);
         $(".on-button").click(function () {
-            sendOperation(itemId, "on")
+            sendOperation(itemId, "on");
         });
         $(".off-button").click(function () {
-            sendOperation(itemId, "off")
+            sendOperation(itemId, "off");
         });
     }
 
@@ -153,7 +153,7 @@ $(document).ready(function () {
             type: "GET",
             dataType: "text",
             success: function (data) {
-                alert(data);
+                $("."+itemId).html(operation)
             },
             error: function (xhr, status, errorThrown) {
                 alert("Error!");

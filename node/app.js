@@ -20,15 +20,15 @@ server.listen(function() {
   console.log("-------------------------------------\n")
 
   var payload = {
-    id: "1",
-    model: "Intel Edison",
-    name: "IoT Node 1",
+    id: 1,
+    model: 'Intel Edison',
+    name: 'IoT Node 1',
     address: server._address,
     port: server._port,
     item:{
-      id: "1-L-1",
-      type: "LED",
-      status: "off"
+      id: '1-L-1',
+      type: 'LED',
+      status: 'off'
     }
   }
 
@@ -42,14 +42,12 @@ server.listen(function() {
 server.on('request', function(req, res) {
 
   if (req.headers['Observe'] !== 0)
-    var operation = req.payload.toString();
+    var msg = JSON.parse(req.payload.toString());
     console.log("\n-------- Message From Server --------")
     console.log("Server Address : " + req.rsinfo.address)
     console.log("Server Port : " + req.rsinfo.port)
     console.log("Payload : " + req.payload.toString());
-    if(operation.length > 0){
-      operationHandler(operation);
-    }
+    messageHandler(msg);
     return res.end(req.payload.toString() + "Success")
 
   var interval = setInterval(function() {
@@ -61,8 +59,8 @@ server.on('request', function(req, res) {
   })
 })
 
-function operationHandler(operation){
+function messageHandler(msg){
   console.log("Client Operation")
-  console.log("Target Item : " + operation.substring(1, 6))
-  console.log("Operation : " + operation.substring(7))
+  console.log("Target Item : " + msg.id)
+  console.log("Operation : " + msg.operation)
 }

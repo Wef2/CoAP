@@ -7,13 +7,15 @@ import com.mcl.repository.NodeRepository;
 import javafx.application.Application;
 import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapResponse;
-import org.eclipse.californium.core.coap.MediaTypeRegistry;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import static org.eclipse.californium.core.coap.MediaTypeRegistry.APPLICATION_JSON;
 
 /**
  * Created by Kim on 2016-02-16.
@@ -45,7 +47,10 @@ public class ItemController {
         Item item = itemRepository.findOne(id);
         Node node = nodeRepository.findOne(item.getNodeId());
         CoapClient coapClient = new CoapClient("117.17.102.81:" + node.getPort());
-        coapClient.put(id + operation, MediaTypeRegistry.TEXT_PLAIN);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id", id);
+        jsonObject.put("operation", operation);
+        coapClient.put(jsonObject.toString(), APPLICATION_JSON);
         coapClient.setTimeout(5000);
         CoapResponse response = coapClient.get();
         if (response != null) {
